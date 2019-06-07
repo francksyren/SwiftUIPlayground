@@ -33,22 +33,29 @@ struct DetailView: View {
     
     var modelIndex: Int {
         data.someData.firstIndex(where: {
-            print("\($0.id) ... \(model.id)")
             return $0.id == model.id
         })!
     }
     
-    
-    
     var body: some View {
-        Text("Detail for name \(data.someData[self.modelIndex].name)")
-            .font(.largeTitle)
-            .navigationBarItems(trailing:
-                Button(action: {
-                    self.data.someData[self.modelIndex].name = "2.0"
-                }) {
-                    Text("Change name")
-            })
+        HStack(alignment: VerticalAlignment.firstTextBaseline) {
+            Text("Name: \(data.someData[self.modelIndex].name)")
+                .font(.largeTitle)
+                .layoutPriority(1)
+            Image("person-placeholder")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 50, height: 50, alignment: Alignment.center)
+            Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.")
+                .font(.caption)
+            
+        }.padding(10)
+        .navigationBarItems(trailing:
+            Button(action: {
+                self.data.someData[self.modelIndex].name = "2.0"
+            }) {
+                Text("Change name")
+        })
     }
 }
 
