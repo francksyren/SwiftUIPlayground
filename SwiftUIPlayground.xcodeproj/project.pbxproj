@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		77DD868A22AAE4100015A650 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77DD868922AAE4100015A650 /* DetailView.swift */; };
+		77DD868C22AAE45A0015A650 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77DD868B22AAE45A0015A650 /* Model.swift */; };
 		77ED44EA22A9AB2C00539BDD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77ED44E922A9AB2C00539BDD /* AppDelegate.swift */; };
 		77ED44EC22A9AB2C00539BDD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77ED44EB22A9AB2C00539BDD /* SceneDelegate.swift */; };
 		77ED44EE22A9AB2C00539BDD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77ED44ED22A9AB2C00539BDD /* ContentView.swift */; };
@@ -16,6 +18,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		77DD868922AAE4100015A650 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		77DD868B22AAE45A0015A650 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		77ED44E622A9AB2C00539BDD /* SwiftUIPlayground.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftUIPlayground.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		77ED44E922A9AB2C00539BDD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		77ED44EB22A9AB2C00539BDD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -63,6 +67,8 @@
 				77ED44F422A9AB2D00539BDD /* LaunchScreen.storyboard */,
 				77ED44F722A9AB2D00539BDD /* Info.plist */,
 				77ED44F122A9AB2D00539BDD /* Preview Content */,
+				77DD868922AAE4100015A650 /* DetailView.swift */,
+				77DD868B22AAE45A0015A650 /* Model.swift */,
 			);
 			path = SwiftUIPlayground;
 			sourceTree = "<group>";
@@ -146,7 +152,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				77DD868C22AAE45A0015A650 /* Model.swift in Sources */,
 				77ED44EA22A9AB2C00539BDD /* AppDelegate.swift in Sources */,
+				77DD868A22AAE4100015A650 /* DetailView.swift in Sources */,
 				77ED44EC22A9AB2C00539BDD /* SceneDelegate.swift in Sources */,
 				77ED44EE22A9AB2C00539BDD /* ContentView.swift in Sources */,
 			);

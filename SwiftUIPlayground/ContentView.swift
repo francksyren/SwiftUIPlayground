@@ -9,55 +9,6 @@
 import SwiftUI
 import Combine
 
-final class SomeBindableObject : BindableObject {
-    
-    var someData = [SomeModel(name: "Franck"), SomeModel(name: "Sri"), SomeModel(name: "Stefan")] {
-        didSet {
-            didChange.send(self)
-        }
-    }
-
-    let didChange = PassthroughSubject<SomeBindableObject, Never>()
-}
-
-struct SomeModel : Identifiable {
-    var id: String = UUID().uuidString
-    
-    var name: String
-}
-
-struct DetailView: View {
-    @EnvironmentObject private var data: SomeBindableObject
-    
-    var model: SomeModel
-    
-    var modelIndex: Int {
-        data.someData.firstIndex(where: {
-            return $0.id == model.id
-        })!
-    }
-    
-    var body: some View {
-        HStack(alignment: VerticalAlignment.firstTextBaseline) {
-            Text("Name: \(data.someData[self.modelIndex].name)")
-                .font(.largeTitle)
-                .layoutPriority(1)
-            Image("person-placeholder")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 50, height: 50, alignment: Alignment.center)
-            Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.")
-                .font(.caption)
-            
-        }.padding(10)
-        .navigationBarItems(trailing:
-            Button(action: {
-                self.data.someData[self.modelIndex].name = "2.0"
-            }) {
-                Text("Change name")
-        })
-    }
-}
 
 struct SomeButton : View {
     
@@ -72,6 +23,13 @@ struct SomeButton : View {
     }
 }
 
+
+extension Character : Identifiable {
+    public var id: Int {
+        return self.hashValue
+    }
+}
+
 struct ContentView : View {
     
     @EnvironmentObject private var data: SomeBindableObject
@@ -83,8 +41,17 @@ struct ContentView : View {
             VStack {
                 SomeButton(isFun: $isFun)
                 List(data.someData) { model in
-                    NavigationButton(destination: DetailView(model: model).environmentObject(self.data) ) {
-                        Text("Your name is \(model.name)")
+                    NavigationButton(destination: DetailView(model: model).environmentObject(self.data)) {
+                        if Int.random(in: 0..<10) % 2 == 0 {
+                            Text("** \(model.name) **")
+                        }
+                        else {
+                            VStack {
+                                ForEach(Array(model.name)) { c in
+                                    Text(String(c))
+                                }
+                            }
+                        }
                     }
                 }
             }.navigationBarTitle(Text("Welcome"))
