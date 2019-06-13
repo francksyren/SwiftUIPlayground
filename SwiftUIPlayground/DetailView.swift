@@ -9,19 +9,19 @@
 import SwiftUI
 
 struct DetailView : View {
-    @EnvironmentObject private var data: SomeBindableObject
+    @EnvironmentObject private var data: ApplicationData
     
     var model: Person
     
     var modelIndex: Int {
-        data.someData.firstIndex(where: {
+        data.model.firstIndex(where: {
             return $0.id == model.id
         })!
     }
     
     var body: some View {
         HStack(alignment: VerticalAlignment.firstTextBaseline) {
-            Text("Name: \(data.someData[self.modelIndex].name)")
+            Text("Name: \(data.model[self.modelIndex].name)")
                 .font(.largeTitle)
                 .layoutPriority(1)
             Image("person-placeholder")
@@ -34,7 +34,7 @@ struct DetailView : View {
             }.padding(10)
             .navigationBarItems(trailing:
                 Button(action: {
-                    self.data.someData[self.modelIndex].name = "2.0"
+                    self.data.model[self.modelIndex].name = "2.0"
                 }) {
                     Text("Change name")
             })

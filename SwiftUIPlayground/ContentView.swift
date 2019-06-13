@@ -118,7 +118,7 @@ struct ContentView : View {
                 }
                 List(appData.model) { model in
                     
-                    NavigationButton(destination: DetailView(model: model).environmentObject(self.data)) {
+                    NavigationButton(destination: DetailView(model: model).environmentObject(self.appData)) {
                         MessageCellView(model: model)
                     }
                 }
