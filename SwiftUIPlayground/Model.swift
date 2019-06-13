@@ -10,19 +10,35 @@ import Foundation
 import SwiftUI
 import Combine
 
-final class SomeBindableObject : BindableObject {
+final class ApplicationData : BindableObject {
     
-    var someData = [SomeModel(name: "Franck"), SomeModel(name: "Sri"), SomeModel(name: "Jean-Yves")] {
+    var model = [Person(name: "Franck", type: .text),
+                    Person(name: "Sri", type: .text),
+                    Person(name: "Jean-Yves", type: .text),
+                    Person(name: "Stefan", type: .image("https://pbs.twimg.com/profile_images/497297322867306496/Pz938i1Q_400x400.jpeg")),
+                    Person(name: "Sean", type: .text),
+                    Person(name: "Ravikumar J.", type: .text)] {
         didSet {
             didChange.send(self)
         }
     }
     
-    let didChange = PassthroughSubject<SomeBindableObject, Never>()
+    let didChange = PassthroughSubject<ApplicationData, Never>()
 }
 
-struct SomeModel : Identifiable {
+struct Person : Identifiable {
     var id: String = UUID().uuidString
     
     var name: String
+    
+    var type: RowType
+    
+    var isText : Bool {
+        return type == RowType.text
+    }
+}
+
+enum RowType : Equatable {
+    case text
+    case image(String)
 }

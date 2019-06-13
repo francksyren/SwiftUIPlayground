@@ -10,6 +10,7 @@ import SwiftUI
 import Combine
 
 
+/*
 struct SomeButton : View {
     
     @Binding var isFun: Bool
@@ -22,7 +23,7 @@ struct SomeButton : View {
         }
     }
 }
-
+*/
 
 extension Character : Identifiable {
     public var id: Int {
@@ -30,34 +31,103 @@ extension Character : Identifiable {
     }
 }
 
+
+struct InputBarView: View {
+    
+    @State private var value: String = ""
+    
+    var body: some View {
+        ZStack(alignment: .trailing) {
+            
+            TextField($value, placeholder: Text("Ask CoPilot"), onCommit: {
+                print("commit")
+                
+            })
+            .textFieldStyle(.roundedBorder)
+            .lineLimit(6)
+            .flipsForRightToLeftLayoutDirection(true)
+            .truncationMode(Text.TruncationMode.head)
+            .allowsTightening(false)
+            
+            Button(action: {
+                print("send")
+            }) {
+                Text("Send")
+            }
+        }
+        .padding()
+        .background(Color.red)
+    }
+}
+/*
+
+struct IfLet<T, Out: View>: View {
+    let value: T?
+    let produce: (T) -> Out
+    
+    init(_ value: T?, produce: @escaping (T) -> Out) {
+        self.value = value
+        self.produce = produce
+    }
+    
+    var body: some View {
+        Group {
+            if value != nil {
+                produce(value!)
+            }
+        }
+    }
+}
+ */
+
+
+struct MessageCellView : View {
+    
+    var model: Person
+    
+    var body: some View {
+        
+        Group {
+            if model.isText {
+                Spacer()
+                Text("** \(model.name) **").background(Color.blue)
+            }
+            else {
+                ViewBuilder.buildBlock(Image("person-placeholder").resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 50, height: 50, alignment: Alignment.center), Text("** \(model.name) **"))
+            }
+            
+        }
+    }
+}
+
+
 struct ContentView : View {
     
-    @EnvironmentObject private var data: SomeBindableObject
+    @EnvironmentObject private var appData: ApplicationData
     
-    @State private var isFun = false
+    @State private var isSomething = false
+    
     
     var body: some View {
         NavigationView {
             VStack {
-                SomeButton(isFun: $isFun)
-                List(data.someData) { model in
+                Toggle(isOn: $isSomething) {
+                    Text("Enabled")
+                }
+                List(appData.model) { model in
+                    
                     NavigationButton(destination: DetailView(model: model).environmentObject(self.data)) {
-                        if Int.random(in: 0..<10) % 2 == 0 {
-                            Text("** \(model.name) **")
-                        }
-                        else {
-                            VStack {
-                                ForEach(Array(model.name)) { c in
-                                    Text(String(c))
-                                }
-                            }
-                        }
+                        MessageCellView(model: model)
                     }
                 }
-            }.navigationBarTitle(Text("Welcome"))
+                InputBarView()
+            }
+            .navigationBarTitle(Text("Welcome"))
             .navigationBarItems(trailing:
                 Button(action: {
-                    self.data.someData.append(SomeModel(name: "Name...") )
+                    self.appData.model.append(Person(name: "Name...", type: .text) )
                 }) {
                     Text("Add")
             })

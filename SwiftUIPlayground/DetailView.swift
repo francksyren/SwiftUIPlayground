@@ -11,7 +11,7 @@ import SwiftUI
 struct DetailView : View {
     @EnvironmentObject private var data: SomeBindableObject
     
-    var model: SomeModel
+    var model: Person
     
     var modelIndex: Int {
         data.someData.firstIndex(where: {
@@ -46,7 +46,7 @@ struct DetailView : View {
 #if DEBUG
 struct DetailView_Previews : PreviewProvider {
     static var previews: some View {
-        DetailView(model: SomeModel(name: "DetailView_Previews"))
+        DetailView(model: Person(name: "DetailView_Previews", type: .text))
     }
 }
 #endif
